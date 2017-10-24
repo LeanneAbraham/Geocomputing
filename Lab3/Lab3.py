@@ -1,13 +1,15 @@
 
 # coding: utf-8
 
-# In[63]:
+# In[19]:
 
 
 import math
 
 # Open the file to be read, it is in the same folder as the file
 f = open('CityPop.csv',"r")
+
+#f.readline() #headers
 
 #create an empty containers to add all city data to
 allCities = []
@@ -39,11 +41,14 @@ cityDict = dict(zip(cityKey,allCities))
     
 
 
-# In[74]:
+# In[22]:
 
 
 # create function to return correctly indexed year
 def popYear(requestYear):
+    #make sure input is int
+    requestYear = int(requestYear)
+    
     if requestYear == 1970:
         return 5
     if requestYear == 1975:
@@ -79,39 +84,6 @@ def distance(lat1, lon1, lat2, lon2):
     readableDistance = distance*6300
     #print
     return readableDistance
-
-#function to check if user year is one listed in csv
-def yearCheck(year):
-
-    #ensure the input year is a string so it can be compared against the dict
-    year = str(year)
-    
-    #create empty list to push cleaned years into for later use
-    cleanYear = []
-    
-    #loop through the "header" values to clean the year values for comparison purposes
-    for i in cityDict["label"]:
-        #loop through to remove the yr suffix
-        x = i.replace("yr","")
-        #push the cleaned variables to their own list to compare against
-        cleanYear.append(x)
-    
-    count = 0
-    #compare input to dict header values
-    while count < len(cleanYear):
-        #check to see if the entered year is one in the csv
-        #if the year is valid, break the loop and move on
-        if year == cleanYear[count]:
-            break
-        #if the loop goes through all possible years without finding a match,
-        #give the user a second chance
-        elif count == 13:
-            print("This is not a valid year, please try again")
-            break
-        #if a match isn't found try again
-        elif year != cleanYear[count]:
-            count = count+1
-            pass
         
 #create a function that calculates population change
 def popChange(year1, year2):
@@ -121,14 +93,28 @@ def popChange(year1, year2):
     year2 = float(year2)
     
     #prevent dividing by zero
-    if (year1 == 0):
-        year1 = 1
-    if (year2 == 0):
-        year2 = 1
+    try:
+        #calculate the rate of change
+        roc = (((year2-year1)/year1)*100)
+        return roc
+
+    #if there is an attempt to divide by zero, set value to NaN instead
+    except:
+        print("there was an attempt to divide by zero")
+        roc = "NaN"
+        return roc
+
+#function to check if user year is one listed in csv
+def yearCheck(year):
     
-    #calculate the rate of change
-    roc = (((year2-year1)/year1)*100)
-    return roc
+    while True:
+        #check to see if user supplied year is in the range of possible years
+        if int(year) in range(1970, 2015, 5):
+            break
+        else:
+            #prompt user to supply new year
+            print("This is not a valid year")
+            year  = input("Enter a different year ")
 
 
 # In[113]:
@@ -180,22 +166,23 @@ print ("The distance between", city1,"and",city2,"is",distance(lat1, lon1, lat2,
 f.close()
 
 
-# In[77]:
+# In[25]:
 
 
-#check the user input
+#prompt for input and check the input
 # year1 = 1970
+# year2 = 2010
 year1 = input("Please enter a starting year ")
+#ensure it can match generated range in check functionn
+
 #check if year is in csv
 yearCheck(year1)
 
-# year2 = 2010
+#request second user input
 year2 = input("Please enter an ending year ")
+
 #check if year is in csv
 yearCheck(year2)
-
-year1 = int(year1)
-year2 = int(year2)
 
 year1Index = popYear(year1)
 year2Index = popYear(year2)
@@ -219,7 +206,7 @@ csv = []
 #loop through the appended dict and sort to just show the the columns of interest and
 #append the formated results to a new list
 for key in cityDict:
-    line = [cityDict[key][0],",",cityDict[key][4],",",cityDict[key][year1Index],",",cityDict[key][year2Index],",",str(cityDict[key][15]),"\n"]
+    line = [cityDict[key][0],",",cityDict[key][4],",",cityDict[key][year1Index],",",cityDict[key][year2Index],",",str(cityDict[key][14]),"\n"]
     csv.append(line)
 
 rows = []
