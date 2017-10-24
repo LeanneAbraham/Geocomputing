@@ -1,9 +1,4 @@
 
-# coding: utf-8
-
-# In[63]:
-
-
 import math
 
 # Open the file to be read, it is in the same folder as the file
@@ -38,10 +33,6 @@ while True:
 cityDict = dict(zip(cityKey,allCities))
     
 
-
-# In[74]:
-
-
 # create function to return correctly indexed year
 def popYear(requestYear):
     if requestYear == 1970:
@@ -63,22 +54,6 @@ def popYear(requestYear):
     if requestYear == 2010:
         return 13
 
-#create function to find distance between two points
-def distance(lat1, lon1, lat2, lon2):
-    
-    #convert user inputs to radians and assign new value to variable
-    lat1 = math.radians(lat1)
-    lat2 = math.radians(lat2)
-    lon1 = math.radians(lon1)
-    lon2 = math.radians(lon2)
-
-    #calculate the distance
-    distance = math.acos((math.sin(lat1)*math.sin(lat2))+(math.cos(lat1)*math.cos(lat2)*math.cos((lon1-lon2))))
-
-    #find the distance in km
-    readableDistance = distance*6300
-    #print
-    return readableDistance
 
 #function to check if user year is one listed in csv
 def yearCheck(year):
@@ -129,58 +104,6 @@ def popChange(year1, year2):
     #calculate the rate of change
     roc = (((year2-year1)/year1)*100)
     return roc
-
-
-# In[113]:
-
-
-#set up user query
-requestCity = input("Please enter a city ")
-# requestCity = "Mexico City"
-requestYear = int(input("Please enter a year "))
-# requestYear = 2010
-
-year = popYear(requestYear)
-
-#return the list of attributes for requested city
-city1 = cityDict.get(requestCity)
-
-#use 
-population = float(city1[year])
-
-#tell the user the results
-print("The population of", requestCity, "in", requestYear, "was", population)
-
-f.close()
-
-
-# In[114]:
-
-
-#set up user query
-city1 = input("Please enter a city ")
-# city1 = "Mexico City"
-city2 = input("Please enter a different city ")
-# city2 = "Lima"
-
-#return the list of attributes for requested cities
-city1Info = cityDict.get(city1)
-city2Info = cityDict.get(city2)
-
-# convert lat lons to floating numbers
-lat1 = float(city1Info[1])
-lon1 = float(city1Info[2])
-lat2 = float(city2Info[1])
-lon2 = float(city2Info[2])
-
-#tell user results
-print ("The distance between", city1,"and",city2,"is",distance(lat1, lon1, lat2, lon2),"km")
-
-#close csv
-f.close()
-
-
-# In[77]:
 
 
 #check the user input
@@ -238,4 +161,3 @@ new.writelines(rows)
     
 #close csv
 new.close()
-
