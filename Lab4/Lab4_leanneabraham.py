@@ -51,6 +51,9 @@ class CityClass:
             roc = "NaN"
             return roc
 
+
+#task 1
+
 #read file
 try: 
     f = open("CityPop.csv", "r")
@@ -99,9 +102,38 @@ while True:
     
 f.close()
 
+#printing out all attributes for all cities
+for i in Cities:
+    #print(i.__dict__)
+    print(i.cname, i.clabel, i.clat, i.clon, i.popValues)
+
+##### NOTES FROM LAB #####
+# c2 = Cities[2]
+# c1.printDistance(c2)
+# c1.printPopChange('yr1990', "yr1995")
+
+#getattr() This is a built in function that will
+#retreive an attribute from an instance using the name of that attribute
+
+#example
+# cityname = getattr(c1, 'cname') #cname is because this is the name of the attribute in the class.
+
+
+#2nd Task: print popChange between 2 years
+
 #create two test city variables
-c1 = Cities[20]
-c2 = Cities[30]
+c1 = Cities[30]
+c2 = Cities[20]
+
+#print out the results of the distance function as a readable string
+print "\nThe distance between",c1.cname,"and", c2.cname, "is", c1.printDistance(c2),"km"
+
+#create variables to make changing years easier
+year1 = 1990
+year2 = 2000
+
+print "\nThe population of", c1.cname, "changed by", c1.printPopChange(year1, year2),"percent between", year1, "and", year2
+
 
 #Task 3
 

@@ -1,9 +1,3 @@
-
-# coding: utf-8
-
-# In[9]:
-
-
 #1st task
 #REMEMBER, DONT NEED USER INPUT
 #create class
@@ -15,11 +9,6 @@ class CityClass:
         self.clat = lat
         self.clon = lon
         self.popValues = pop
-
-#     def printDistance(self, otherCity):
-#         calculate the distance
-#     def printPopChange(year1, year2):
-#         retreive the populationn for year1 and year2
     
 #read file
 try: 
@@ -33,7 +22,8 @@ Cities = []
 #skip the header line by taking it out
 header = f.readline()
 
-#make a list of population index numbers years for later use
+#make a list of index numbers corresponding to the population in needed years years for later use
+#this skips the first couple of non-population fields
 yearIndex = list(range(5,14,1))
 
 #make a list of available years
@@ -42,13 +32,15 @@ years = list(range(1970, 2015, 5))
 #populate CityClass with attributes by reading in the csv
 while True:
     line = f.readline()
-    #skip the header line
+    #skips the header line
+    #stops the loop when finished reading the csv
     if len(line) == 0:
         break
+    
     #clean the csv
     clist = line.strip().split(",")
     
-    #create an empty list for the population numbers, then 
+    #create an empty list for the population numbers, then then populate it with csv values for each line
     population = []
     for i in yearIndex:
         population.append((clist[i]))
@@ -64,8 +56,10 @@ while True:
 
 f.close()
 
+
 #printing out all attributes for all cities
 for i in Cities:
+    #print(i.__dict__)
     print(i.cname, i.clabel, i.clat, i.clon, i.popValues)
 
 ##### NOTES FROM LAB #####
@@ -78,14 +72,3 @@ for i in Cities:
 
 #example
 # cityname = getattr(c1, 'cname') #cname is because this is the name of the attribute in the class.
-print()
-
-
-# In[ ]:
-
-
-#2nd Task: print popChange between 2 years
-
-
-
-

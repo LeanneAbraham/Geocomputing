@@ -60,24 +60,29 @@ Cities = []
 #skip the header line by taking it out
 header = f.readline()
 
-#make a list of population index numbers years for later use
+#make a list of index numbers corresponding to the population in needed years years for later use
+#this skips the first couple of non-population fields
 yearIndex = list(range(5,14,1))
 
 #make a list of available years
 years = list(range(1970, 2015, 5))
 
-#populate CityClass with attributes by reading in the csv
+#populate CityClass with attributes by reading in the csv line by line (basically city by city)
 while True:
     line = f.readline()
     #skip the header line
+    
+    #stops the loop when finished reading the csv
     if len(line) == 0:
         break
     #clean the csv
     clist = line.strip().split(",")
     
-    #create an empty list for the population numbers, then 
+    #create an empty list for the population numbers, then populate it with csv values for each line
     population = []
+        
     for i in yearIndex:
+        
         population.append(float(clist[i]))
     
     #create dictonary to append to city class
@@ -86,9 +91,9 @@ while True:
     #create a city instance and attach attributes
     c = CityClass(clist[4], clist[3], clist[1], clist[2], popValues)
     
-    #add instance to master list
+    #add instance to master list of all city classes
     Cities.append(c)
-
+    
 f.close()
 
 #2nd Task: print popChange between 2 years
