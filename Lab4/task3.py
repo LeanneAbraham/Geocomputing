@@ -96,38 +96,38 @@ while True:
 f.close()
 
 #create two test city variables
-c1 = Cities[2]
-c2 = Cities[38]
+c1 = Cities[20]
+c2 = Cities[30]
+
 
 #Task 3
 
-#plot the population changes for two cities, ignoring zeros
-#make the values of the two city years regular lists
-p1 = list(c1.popValues.values())
-p2 = list(c2.popValues.values())
- 
-#sort the resulting lists
-p1.sort()
-p2.sort()
+#create two empty lists to hold the ordered population values for each city
+p1 = []
+p2 = []
 
+#iterate over each year and create an ordered list of population values for each city
+#by using the year as the key to access the population value
+for i in years:
+    p1.append(c1.popValues[i])
+    p2.append(c2.popValues[i])
+
+#plot the resulting lists against the range of years
 plt.plot(years,p1)
 plt.plot(years,p2)
 
 #create the axis labels
 #find min and max for the labels
-c1Min = (min(c1.popValues.values()))
-c1Max = (max(c1.popValues.values()))
-
-c2Min = (min(c2.popValues.values()))
-c2Max = (max(c2.popValues.values()))
+c1Max = max(p1)
+c2Max = max(p2)
 
 if c1Max > c2Max:
     ymax = c1Max
 else:
     ymax = c2Max
     
-#create correctly labeled axis
-plt.axis([min(years), max(years), 0, ymax+5])
+#create correctly labeled axis that adjusts for the largest population visualized
+plt.axis([min(years), max(years), 0, math.ceil(ymax*1.05)])
 plt.xlabel("Years")
 plt.ylabel("Population (in Millions)")
 
@@ -136,4 +136,3 @@ plt.legend([c1.cname, c2.cname], loc='upper left')
 
 #display the line graph
 plt.show()
-
