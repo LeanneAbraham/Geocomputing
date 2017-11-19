@@ -62,8 +62,6 @@ for i in range(fCount):
     fPrecision = fDefn.GetPrecision()
     print fName + '\t' + fType + '\t' + str(fWidth) + '\t' + str(fPrecision)
 
-print
-
 # get values of feature fields
 polygonFeat = polygonLayer.GetFeature(0)
 print polygonFeat.GetField(1) # get field by id (1 indicates the second field)
