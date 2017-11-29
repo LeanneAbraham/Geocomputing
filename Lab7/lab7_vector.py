@@ -5,8 +5,8 @@ arcpy.env.workspace = "c:\data"
 arcpy.env.overwriteOutput = True
 
 # set feature class name
-fc1 = ".\data\sample_line.shp"
-fc2 = ".\data\sample_polygon.shp"
+fc1 = "sample_line.shp"
+fc2 = "sample_polygon.shp"
 
 # get feature class description
 desc = arcpy.Describe(fc2)
